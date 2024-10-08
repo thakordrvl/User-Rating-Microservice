@@ -1,0 +1,10 @@
+server:
+  port: 8085
+
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/thakordrvl/User-Rating-Config
+          clone-on-start: true

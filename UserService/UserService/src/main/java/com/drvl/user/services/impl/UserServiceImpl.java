@@ -4,17 +4,12 @@ import com.drvl.user.entities.Hotel;
 import com.drvl.user.entities.Rating;
 import com.drvl.user.entities.User;
 import com.drvl.user.exceptions.ResourceNotFoundException;
+import com.drvl.user.external.service.HotelService;
+import com.drvl.user.external.service.RatingService;
 import com.drvl.user.repositories.UserRepository;
 import com.drvl.user.services.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-
 import java.util.List;
 import java.util.UUID;
 
@@ -26,9 +21,10 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private RestTemplate restTemplate;
+    private HotelService hotelService;
 
-    private final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+    @Autowired
+    private RatingService ratingService;
     @Override
     public User saveUser(User user) {
         String randomuserId = UUID.randomUUID().toString();
@@ -41,20 +37,22 @@ public class UserServiceImpl implements UserService {
         List<User> listOfUser = userRepository.findAll();
 
         listOfUser.forEach(user -> {
-            // Fetch the list of ratings for the user using ParameterizedTypeReference
-            ResponseEntity<List<Rating>> responseEntity = restTemplate.exchange(
-                    "http://RATINGSERVICE/ratings/users/" + user.getUserId(),
-                    HttpMethod.GET,
-                    null,
-                    new ParameterizedTypeReference<List<Rating>>() {}
-            );
-
-            List<Rating> ratingsOfUser = responseEntity.getBody();
+//            // Fetch the list of ratings for the user using ParameterizedTypeReference
+//            ResponseEntity<List<Rating>> responseEntity = restTemplate.exchange(
+//                    "http://RATINGSERVICE/ratings/users/" + user.getUserId(),
+//                    HttpMethod.GET,
+//                    null,
+//                    new ParameterizedTypeReference<List<Rating>>() {}
+//            );
+//
+//            List<Rating> ratingsOfUser = responseEntity.getBody();
+            List<Rating> ratingsOfUser = ratingService.getRatingsByUserId(user.getUserId());
 
             if (ratingsOfUser != null) {
                 // Fetch and set the hotel for each rating
                 ratingsOfUser.forEach(rating -> {
-                    Hotel hotel = restTemplate.getForObject("http://HOTELSERVICE/hotels/" + rating.getHotelId(), Hotel.class);
+//                    Hotel hotel = restTemplate.getForObject("http://HOTELSERVICE/hotels/" + rating.getHotelId(), Hotel.class);
+                    Hotel hotel = hotelService.getHotel(rating.getHotelId());
                     rating.setHotel(hotel);
                 });
 
@@ -72,19 +70,21 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(()->new ResourceNotFoundException("User with given id is not found on server !! : " +
                         userId));
 
-        ResponseEntity<List<Rating>> responseEntity = restTemplate.exchange(
-                "http://RATINGSERVICE/ratings/users/" + user.getUserId(),
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<List<Rating>>() {}
-        );
-
-        List<Rating> ratingsOfUser = responseEntity.getBody();
+//        ResponseEntity<List<Rating>> responseEntity = restTemplate.exchange(
+//                "http://RATINGSERVICE/ratings/users/" + user.getUserId(),
+//                HttpMethod.GET,
+//                null,
+//                new ParameterizedTypeReference<List<Rating>>() {}
+//        );
+//
+//        List<Rating> ratingsOfUser = responseEntity.getBody();
+        List<Rating> ratingsOfUser = ratingService.getRatingsByUserId(user.getUserId());
 
         if (ratingsOfUser != null) {
             // Fetch and set the hotel for each rating
             ratingsOfUser.forEach(rating -> {
-                Hotel hotel = restTemplate.getForObject("http://HOTELSERVICE/hotels/" + rating.getHotelId(), Hotel.class);
+//                Hotel hotel = restTemplate.getForObject("http://HOTELSERVICE/hotels/" + rating.getHotelId(), Hotel.class);
+                Hotel hotel = hotelService.getHotel(rating.getHotelId());
                 rating.setHotel(hotel);
             });
 
