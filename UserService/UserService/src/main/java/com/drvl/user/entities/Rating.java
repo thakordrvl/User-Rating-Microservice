@@ -1,8 +1,7 @@
-package com.drvl.user.service.entities;
+package com.drvl.user.entities;
 
 
 import lombok.*;
-import org.springframework.data.annotation.Id;
 
 @Getter
 @Setter

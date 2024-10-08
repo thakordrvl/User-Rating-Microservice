@@ -1,11 +1,11 @@
-package com.drvl.user.service.services.impl;
+package com.drvl.user.services.impl;
 
-import com.drvl.user.service.entities.Hotel;
-import com.drvl.user.service.entities.Rating;
-import com.drvl.user.service.entities.User;
-import com.drvl.user.service.exceptions.ResourceNotFoundException;
-import com.drvl.user.service.repositories.UserRepository;
-import com.drvl.user.service.services.UserService;
+import com.drvl.user.entities.Hotel;
+import com.drvl.user.entities.Rating;
+import com.drvl.user.entities.User;
+import com.drvl.user.exceptions.ResourceNotFoundException;
+import com.drvl.user.repositories.UserRepository;
+import com.drvl.user.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 

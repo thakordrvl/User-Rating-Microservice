@@ -1,6 +1,6 @@
-package com.drvl.user.service.services;
+package com.drvl.user.services;
 
-import com.drvl.user.service.entities.User;
+import com.drvl.user.entities.User;
 
 import java.util.List;
 

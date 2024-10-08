@@ -1,4 +1,4 @@
-package com.drvl.user.service.exceptions;
+package com.drvl.user.exceptions;
 
 public class ResourceNotFoundException extends RuntimeException{
 

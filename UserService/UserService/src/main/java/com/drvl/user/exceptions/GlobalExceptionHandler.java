@@ -1,7 +1,7 @@
-package com.drvl.user.service.exceptions;
+package com.drvl.user.exceptions;
 
 
-import com.drvl.user.service.payload.ApiResponse;
+import com.drvl.user.payload.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

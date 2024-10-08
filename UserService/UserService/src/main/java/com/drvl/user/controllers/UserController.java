@@ -1,8 +1,8 @@
-package com.drvl.user.service.controllers;
+package com.drvl.user.controllers;
 
 
-import com.drvl.user.service.entities.User;
-import com.drvl.user.service.services.UserService;
+import com.drvl.user.entities.User;
+import com.drvl.user.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

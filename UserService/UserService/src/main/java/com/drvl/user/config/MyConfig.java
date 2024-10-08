@@ -1,4 +1,4 @@
-package com.drvl.user.service.config;
+package com.drvl.user.config;
 
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;

@@ -1,4 +1,4 @@
-package com.drvl.user.service.payload;
+package com.drvl.user.payload;
 
 import lombok.*;
 import org.springframework.http.HttpStatus;

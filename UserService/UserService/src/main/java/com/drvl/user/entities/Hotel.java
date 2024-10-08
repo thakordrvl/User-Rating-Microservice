@@ -1,4 +1,4 @@
-package com.drvl.user.service.entities;
+package com.drvl.user.entities;
 
 import lombok.*;
 
