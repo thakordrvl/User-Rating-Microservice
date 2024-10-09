@@ -46,7 +46,6 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
-
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers(){
         List<User> users = userService.getAllUser();
