@@ -4,6 +4,7 @@ package com.drvl.user.controllers;
 import com.drvl.user.entities.User;
 import com.drvl.user.services.UserService;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,8 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    @CircuitBreaker(name = "HOTEL-RATING-BREAKER",fallbackMethod = "ratingHotelFallback")
+//    @CircuitBreaker(name = "HOTEL-RATING-BREAKER",fallbackMethod = "ratingHotelFallback")
+    @Retry(name = "HOTEL-RATING-SERVICE", fallbackMethod = "ratingHotelFallback")
     public ResponseEntity<User> getSingleUser(@PathVariable String userId){
         User user = userService.getUser(userId);
         return ResponseEntity.ok(user);
